@@ -1,0 +1,14 @@
+{
+  "name": "testing-i",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test":"jest --watch --verbose",
+  },
+  "repository": "git@github.com:linkel/testing-i.git",
+  "author": "linkel <ironcarbide@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^24.1.0"
+  }
+}
