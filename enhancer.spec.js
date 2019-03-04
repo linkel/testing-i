@@ -1,4 +1,4 @@
-const {success, fail, repair} = require('./enhancer');
+const {success, fail, repair, validateDurability} = require('./enhancer');
 
 const regularItem = {
     originalName: 'Blade of Wonder',
@@ -68,8 +68,24 @@ const amazingFailItem = {
     originalName: 'Dark Claymore',
     name: '[TRI] Dark Claymore',
     type: 'weapon',
-    durability: 70,
+    durability: 60,
     enhancement: 18
+}
+
+const beatUpItem = {
+    originalName: 'Spiked Club',
+    name: '[+1] Spiked Club',
+    type: 'weapon',
+    durability: 10,
+    enhancement: 1
+}
+
+const niceItemLowDur = {
+    originalName: 'Shining Helm',
+    name: '[DUO] Shining Helm',
+    type: 'armor',
+    durability: 15,
+    enhancement: 17
 }
 
 describe('enhancer.js', () => {
@@ -95,6 +111,17 @@ describe('enhancer.js', () => {
         })
         test('happy case, amazing item with >16 enhancement fails to be enhanced', () => {
             expect(fail(amazingItem)).toEqual(amazingFailItem);
+        })
+    })
+    describe('validateDurability()', () => {
+        test('item always fail if durability < 25 for enhancement levels under 14', () => {
+            expect(validateDurability(beatUpItem)).toBe(0)
+        })
+        test('item is fine if durability more than 25', () => {
+            expect(validateDurability(regularItem)).toBe(1)
+        })
+        test('nice items will be fine if durability is more than 10', () => {
+            expect(validateDurability(niceItemLowDur)).toBe(1)
         })
     })
 })
